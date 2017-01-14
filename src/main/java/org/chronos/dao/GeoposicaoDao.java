@@ -29,6 +29,7 @@ public class GeoposicaoDao {
 
 	public Geoposicao findById(Long id) {
 		return em.find(Geoposicao.class, id);
+		
 	}
 
 	public Geoposicao update(Geoposicao entity) {
@@ -38,13 +39,22 @@ public class GeoposicaoDao {
 	public List<Geoposicao> listAll(Integer startPosition, Integer maxResult) {
 		TypedQuery<Geoposicao> findAllQuery = em.createQuery(
 				"SELECT DISTINCT g FROM Geoposicao g ORDER BY g.id",
-				Geoposicao.class);
+				Geoposicao.class);  
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
 		}
 		if (maxResult != null) {
 			findAllQuery.setMaxResults(maxResult);
 		}
+		return findAllQuery.getResultList();
+	}
+	
+	
+	public List<Geoposicao> listAll() {
+		TypedQuery<Geoposicao> findAllQuery = em.createQuery(
+				"SELECT DISTINCT g FROM Geoposicao g ORDER BY g.id",
+				Geoposicao.class);  
+		 
 		return findAllQuery.getResultList();
 	}
 }

@@ -1,6 +1,7 @@
 package org.chronos.model;
 
 import javax.persistence.Entity;
+
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;

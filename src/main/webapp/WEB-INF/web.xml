@@ -20,17 +20,9 @@
     <error-code>500</error-code>
     <location>/faces/error.xhtml</location>
   </error-page>
-  
-  
- 
-
- 
 
 
-
-
-
-	<servlet>
+<servlet>
 		<servlet-name>Push Servlet</servlet-name>
 		<servlet-class>org.primefaces.push.PushServlet</servlet-class>	
 		<load-on-startup>1</load-on-startup>	
@@ -41,19 +33,6 @@
 		<url-pattern>/primepush/*</url-pattern>
 	</servlet-mapping>
 
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   
