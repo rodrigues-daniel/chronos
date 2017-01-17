@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{marcadorModelBean.id}'/>
+		<f:event type="preRenderView" listener='#{marcadorModelBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Marcador Model"/>
+
+	<ui:define name="header">
+		Marcador Model
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test='#{!empty marcadorModelBean.id}'>
+				Edit existing Marcador Model
+			</c:when>
+			<c:otherwise>
+				Create a new Marcador Model
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="marcadorModelBeanMarcadorModelLogradouro" value="Logradouro:"/>
+				<h:panelGroup>
+					<h:inputText id="marcadorModelBeanMarcadorModelLogradouro" value="#{marcadorModelBean.marcadorModel.logradouro}"/>
+					<h:message for="marcadorModelBeanMarcadorModelLogradouro" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="marcadorModelBeanMarcadorModelNumero" value="Numero:"/>
+				<h:panelGroup>
+					<h:inputText id="marcadorModelBeanMarcadorModelNumero" maxLength="7" value="#{marcadorModelBean.marcadorModel.numero}"/>
+					<h:message for="marcadorModelBeanMarcadorModelNumero" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="marcadorModelBeanMarcadorModelLatitude" value="Latitude:"/>
+				<h:panelGroup>
+					<h:inputText id="marcadorModelBeanMarcadorModelLatitude" maxLength="10" value="#{marcadorModelBean.marcadorModel.latitude}"/>
+					<h:message for="marcadorModelBeanMarcadorModelLatitude" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="marcadorModelBeanMarcadorModelLongitude" value="Longitude:"/>
+				<h:panelGroup>
+					<h:inputText id="marcadorModelBeanMarcadorModelLongitude" maxLength="10" value="#{marcadorModelBean.marcadorModel.longitude}"/>
+					<h:message for="marcadorModelBeanMarcadorModelLongitude" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action='#{marcadorModelBean.update}' styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test='#{!empty marcadorModelBean.id}'>
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value='#{marcadorModelBean.id}'/>
+						</h:link>
+						<h:commandLink value="Delete" action='#{marcadorModelBean.delete}' styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

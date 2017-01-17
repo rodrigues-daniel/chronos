@@ -7,35 +7,35 @@
 	template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
-		<f:viewParam name="id" value='#{geoposicaoBean.id}'/>
-		<f:event type="preRenderView" listener='#{geoposicaoBean.retrieve}'/>
+		<f:viewParam name="id" value='#{marcadorModelBean.id}'/>
+		<f:event type="preRenderView" listener='#{marcadorModelBean.retrieve}'/>
 	</f:metadata>
 
-	<ui:param name="pageTitle" value="View Geoposicao"/>
+	<ui:param name="pageTitle" value="View Marcador Model"/>
 
 	<ui:define name="header">
-		Geoposicao
+		Marcador Model
 	</ui:define>
 
 	<ui:define name="subheader">
-		View existing Geoposicao
+		View existing Marcador Model
 	</ui:define>
 
 	<ui:define name="footer"/>
 
 	<ui:define name="main">
 		<h:panelGrid columnClasses="label,component,required" columns="3">
-			<h:outputLabel for="geoposicaoBeanGeoposicaoLogradouro" value="Logradouro:"/>
-			<h:outputText id="geoposicaoBeanGeoposicaoLogradouro" value="#{geoposicaoBean.geoposicao.logradouro}"/>
+			<h:outputLabel for="marcadorModelBeanMarcadorModelLogradouro" value="Logradouro:"/>
+			<h:outputText id="marcadorModelBeanMarcadorModelLogradouro" value="#{marcadorModelBean.marcadorModel.logradouro}"/>
 			<h:outputText/>
-			<h:outputLabel for="geoposicaoBeanGeoposicaoNumero" value="Numero:"/>
-			<h:outputText id="geoposicaoBeanGeoposicaoNumero" value="#{geoposicaoBean.geoposicao.numero}"/>
+			<h:outputLabel for="marcadorModelBeanMarcadorModelNumero" value="Numero:"/>
+			<h:outputText id="marcadorModelBeanMarcadorModelNumero" value="#{marcadorModelBean.marcadorModel.numero}"/>
 			<h:outputText/>
-			<h:outputLabel for="geoposicaoBeanGeoposicaoLatitude" value="Latitude:"/>
-			<h:outputText id="geoposicaoBeanGeoposicaoLatitude" value="#{geoposicaoBean.geoposicao.latitude}"/>
+			<h:outputLabel for="marcadorModelBeanMarcadorModelLatitude" value="Latitude:"/>
+			<h:outputText id="marcadorModelBeanMarcadorModelLatitude" value="#{marcadorModelBean.marcadorModel.latitude}"/>
 			<h:outputText/>
-			<h:outputLabel for="geoposicaoBeanGeoposicaoLongitude" value="Longitude:"/>
-			<h:outputText id="geoposicaoBeanGeoposicaoLongitude" value="#{geoposicaoBean.geoposicao.longitude}"/>
+			<h:outputLabel for="marcadorModelBeanMarcadorModelLongitude" value="Longitude:"/>
+			<h:outputText id="marcadorModelBeanMarcadorModelLongitude" value="#{marcadorModelBean.marcadorModel.longitude}"/>
 			<h:outputText/>
 		</h:panelGrid>
 

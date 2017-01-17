@@ -24,12 +24,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.chronos.model.Geoposicao;
+import org.chronos.model.MarcadorModel;
 
 /**
- * Backing bean for Geoposicao entities.
+ * Backing bean for MarcadorModel entities.
  * <p/>
- * This class provides CRUD functionality for all Geoposicao entities. It
+ * This class provides CRUD functionality for all MarcadorModel entities. It
  * focuses purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt>
  * for state management, <tt>PersistenceContext</tt> for persistence,
  * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD
@@ -39,12 +39,12 @@ import org.chronos.model.Geoposicao;
 @Named
 @Stateful
 @ConversationScoped
-public class GeoposicaoBean implements Serializable {
+public class MarcadorModelBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Support creating and retrieving Geoposicao entities
+	 * Support creating and retrieving MarcadorModel entities
 	 */
 
 	private Long id;
@@ -57,14 +57,14 @@ public class GeoposicaoBean implements Serializable {
 		this.id = id;
 	}
 
-	private Geoposicao geoposicao;
+	private MarcadorModel marcadorModel;
 
-	public Geoposicao getGeoposicao() {
-		return this.geoposicao;
+	public MarcadorModel getMarcadorModel() {
+		return this.marcadorModel;
 	}
 
-	public void setGeoposicao(Geoposicao geoposicao) {
-		this.geoposicao = geoposicao;
+	public void setMarcadorModel(MarcadorModel marcadorModel) {
+		this.marcadorModel = marcadorModel;
 	}
 
 	@Inject
@@ -92,19 +92,19 @@ public class GeoposicaoBean implements Serializable {
 		}
 
 		if (this.id == null) {
-			this.geoposicao = this.example;
+			this.marcadorModel = this.example;
 		} else {
-			this.geoposicao = findById(getId());
+			this.marcadorModel = findById(getId());
 		}
 	}
 
-	public Geoposicao findById(Long id) {
+	public MarcadorModel findById(Long id) {
 
-		return this.entityManager.find(Geoposicao.class, id);
+		return this.entityManager.find(MarcadorModel.class, id);
 	}
 
 	/*
-	 * Support updating and deleting Geoposicao entities
+	 * Support updating and deleting MarcadorModel entities
 	 */
 
 	public String update() {
@@ -112,11 +112,12 @@ public class GeoposicaoBean implements Serializable {
 
 		try {
 			if (this.id == null) {
-				this.entityManager.persist(this.geoposicao);
+				this.entityManager.persist(this.marcadorModel);
 				return "search?faces-redirect=true";
 			} else {
-				this.entityManager.merge(this.geoposicao);
-				return "view?faces-redirect=true&id=" + this.geoposicao.getId();
+				this.entityManager.merge(this.marcadorModel);
+				return "view?faces-redirect=true&id="
+						+ this.marcadorModel.getId();
 			}
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -129,7 +130,7 @@ public class GeoposicaoBean implements Serializable {
 		this.conversation.end();
 
 		try {
-			Geoposicao deletableEntity = findById(getId());
+			MarcadorModel deletableEntity = findById(getId());
 
 			this.entityManager.remove(deletableEntity);
 			this.entityManager.flush();
@@ -142,14 +143,14 @@ public class GeoposicaoBean implements Serializable {
 	}
 
 	/*
-	 * Support searching Geoposicao entities with pagination
+	 * Support searching MarcadorModel entities with pagination
 	 */
 
 	private int page;
 	private long count;
-	private List<Geoposicao> pageItems;
+	private List<MarcadorModel> pageItems;
 
-	private Geoposicao example = new Geoposicao();
+	private MarcadorModel example = new MarcadorModel();
 
 	public int getPage() {
 		return this.page;
@@ -163,11 +164,11 @@ public class GeoposicaoBean implements Serializable {
 		return 10;
 	}
 
-	public Geoposicao getExample() {
+	public MarcadorModel getExample() {
 		return this.example;
 	}
 
-	public void setExample(Geoposicao example) {
+	public void setExample(MarcadorModel example) {
 		this.example = example;
 	}
 
@@ -183,7 +184,7 @@ public class GeoposicaoBean implements Serializable {
 		// Populate this.count
 
 		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Geoposicao> root = countCriteria.from(Geoposicao.class);
+		Root<MarcadorModel> root = countCriteria.from(MarcadorModel.class);
 		countCriteria = countCriteria.select(builder.count(root)).where(
 				getSearchPredicates(root));
 		this.count = this.entityManager.createQuery(countCriteria)
@@ -191,17 +192,18 @@ public class GeoposicaoBean implements Serializable {
 
 		// Populate this.pageItems
 
-		CriteriaQuery<Geoposicao> criteria = builder
-				.createQuery(Geoposicao.class);
-		root = criteria.from(Geoposicao.class);
-		TypedQuery<Geoposicao> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
+		CriteriaQuery<MarcadorModel> criteria = builder
+				.createQuery(MarcadorModel.class);
+		root = criteria.from(MarcadorModel.class);
+		TypedQuery<MarcadorModel> query = this.entityManager
+				.createQuery(criteria.select(root).where(
+						getSearchPredicates(root)));
 		query.setFirstResult(this.page * getPageSize()).setMaxResults(
 				getPageSize());
 		this.pageItems = query.getResultList();
 	}
 
-	private Predicate[] getSearchPredicates(Root<Geoposicao> root) {
+	private Predicate[] getSearchPredicates(Root<MarcadorModel> root) {
 
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
@@ -222,7 +224,7 @@ public class GeoposicaoBean implements Serializable {
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);
 	}
 
-	public List<Geoposicao> getPageItems() {
+	public List<MarcadorModel> getPageItems() {
 		return this.pageItems;
 	}
 
@@ -231,16 +233,16 @@ public class GeoposicaoBean implements Serializable {
 	}
 
 	/*
-	 * Support listing and POSTing back Geoposicao entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
+	 * Support listing and POSTing back MarcadorModel entities (e.g. from inside
+	 * an HtmlSelectOneMenu)
 	 */
 
-	public List<Geoposicao> getAll() {
+	public List<MarcadorModel> getAll() {
 
-		CriteriaQuery<Geoposicao> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Geoposicao.class);
+		CriteriaQuery<MarcadorModel> criteria = this.entityManager
+				.getCriteriaBuilder().createQuery(MarcadorModel.class);
 		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Geoposicao.class)))
+				criteria.select(criteria.from(MarcadorModel.class)))
 				.getResultList();
 	}
 
@@ -249,8 +251,8 @@ public class GeoposicaoBean implements Serializable {
 
 	public Converter getConverter() {
 
-		final GeoposicaoBean ejbProxy = this.sessionContext
-				.getBusinessObject(GeoposicaoBean.class);
+		final MarcadorModelBean ejbProxy = this.sessionContext
+				.getBusinessObject(MarcadorModelBean.class);
 
 		return new Converter() {
 
@@ -269,7 +271,7 @@ public class GeoposicaoBean implements Serializable {
 					return "";
 				}
 
-				return String.valueOf(((Geoposicao) value).getId());
+				return String.valueOf(((MarcadorModel) value).getId());
 			}
 		};
 	}
@@ -278,15 +280,15 @@ public class GeoposicaoBean implements Serializable {
 	 * Support adding children to bidirectional, one-to-many tables
 	 */
 
-	private Geoposicao add = new Geoposicao();
+	private MarcadorModel add = new MarcadorModel();
 
-	public Geoposicao getAdd() {
+	public MarcadorModel getAdd() {
 		return this.add;
 	}
 
-	public Geoposicao getAdded() {
-		Geoposicao added = this.add;
-		this.add = new Geoposicao();
+	public MarcadorModel getAdded() {
+		MarcadorModel added = this.add;
+		this.add = new MarcadorModel();
 		return added;
 	}
 }

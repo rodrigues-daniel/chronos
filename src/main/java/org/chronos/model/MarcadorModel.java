@@ -10,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Version;
 
 @Entity
-public class Geoposicao implements Serializable {
+public class MarcadorModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -54,10 +54,10 @@ public class Geoposicao implements Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Geoposicao)) {
+		if (!(obj instanceof MarcadorModel)) {
 			return false;
 		}
-		Geoposicao other = (Geoposicao) obj;
+		MarcadorModel other = (MarcadorModel) obj;
 		if (id != null) {
 			if (!id.equals(other.id)) {
 				return false;

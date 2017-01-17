@@ -6,40 +6,40 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.chronos.model.Geoposicao;
+import org.chronos.model.MarcadorModel;
 
 /**
  * DAO for Geoposicao
  */
 @Stateless
-public class GeoposicaoDao {
+public class MarcadorDao {
 	@PersistenceContext(unitName = "chronos-persistence-unit")
 	private EntityManager em;
 
-	public void create(Geoposicao entity) {
+	public void create(MarcadorModel entity) {
 		em.persist(entity);
 	}
 
 	public void deleteById(Long id) {
-		Geoposicao entity = em.find(Geoposicao.class, id);
+		MarcadorModel entity = em.find(MarcadorModel.class, id);
 		if (entity != null) {
 			em.remove(entity);
 		}
 	}
 
-	public Geoposicao findById(Long id) {
-		return em.find(Geoposicao.class, id);
+	public MarcadorModel findById(Long id) {
+		return em.find(MarcadorModel.class, id);
 		
 	}
 
-	public Geoposicao update(Geoposicao entity) {
+	public MarcadorModel update(MarcadorModel entity) {
 		return em.merge(entity);
 	}
 
-	public List<Geoposicao> listAll(Integer startPosition, Integer maxResult) {
-		TypedQuery<Geoposicao> findAllQuery = em.createQuery(
-				"SELECT DISTINCT g FROM Geoposicao g ORDER BY g.id",
-				Geoposicao.class);  
+	public List<MarcadorModel> listAll(Integer startPosition, Integer maxResult) {
+		TypedQuery<MarcadorModel> findAllQuery = em.createQuery(
+				"SELECT DISTINCT g FROM MarcadorModel g ORDER BY g.id",
+				MarcadorModel.class);  
 		if (startPosition != null) {
 			findAllQuery.setFirstResult(startPosition);
 		}
@@ -50,10 +50,10 @@ public class GeoposicaoDao {
 	}
 	
 	
-	public List<Geoposicao> listAll() {
-		TypedQuery<Geoposicao> findAllQuery = em.createQuery(
-				"SELECT DISTINCT g FROM Geoposicao g ORDER BY g.id",
-				Geoposicao.class);  
+	public List<MarcadorModel> listAll() {
+		TypedQuery<MarcadorModel> findAllQuery = em.createQuery(
+				"SELECT DISTINCT g FROM MarcadorModel g ORDER BY g.id",
+				MarcadorModel.class);  
 		 
 		return findAllQuery.getResultList();
 	}
