@@ -25,6 +25,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.chronos.model.MarcadorModel;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
 /**
  * Backing bean for MarcadorModel entities.
@@ -77,6 +79,12 @@ public class MarcadorModelBean implements Serializable {
 
 		this.conversation.begin();
 		this.conversation.setTimeout(1800000L);
+		
+		EventBus eventBus = EventBusFactory.getDefault().eventBus();
+		eventBus.publish("/mpsocket", "Texto publiccado pelo evento");
+		
+		
+		
 		return "create?faces-redirect=true";
 	}
 
@@ -108,6 +116,8 @@ public class MarcadorModelBean implements Serializable {
 	 */
 
 	public String update() {
+		
+		
 		this.conversation.end();
 
 		try {
@@ -124,6 +134,8 @@ public class MarcadorModelBean implements Serializable {
 					new FacesMessage(e.getMessage()));
 			return null;
 		}
+		
+		
 	}
 
 	public String delete() {

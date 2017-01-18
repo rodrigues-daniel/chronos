@@ -13,6 +13,8 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
 @Model
 public class AddMarcadoresView {
@@ -29,12 +31,10 @@ public class AddMarcadoresView {
 	public void init() {
 
 		setMapModel(new DefaultMapModel());
-		addMarcadores();
+		 
 
 	}
-	
-	
-	
+
 	public MapModel getMapModel() {
 		return mapModel;
 	}
@@ -42,8 +42,6 @@ public class AddMarcadoresView {
 	public void setMapModel(MapModel mapModel) {
 		this.mapModel = mapModel;
 	}
-	
-	
 
 	public String getNomeMarcador() {
 		return nomeMarcador;
@@ -69,18 +67,22 @@ public class AddMarcadoresView {
 		this.lon = lon;
 	}
 
-	private void addMarcadores() {
+	public void addMarcadores() {
 
 		List<MarcadorModel> marcadorModels = marcadorDao.listAll();
+		
 
 		for (MarcadorModel model : marcadorModels) {
 
 			Marker marker = new Marker(new LatLng(model.getLatitude(), model.getLongitude()), model.getLogradouro());
 			getMapModel().addOverlay(marker);
+			
+			
 		}
 
+		EventBus eventBus = EventBusFactory.getDefault().eventBus();		
+		eventBus.publish("/mpsocket","Menssagem enviada");
+
 	}
-
-
 
 }
