@@ -4,11 +4,12 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
-
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 
 import org.chronos.dao.MarcadorDao;
 import org.chronos.model.MarcadorModel;
+import org.primefaces.component.gmap.GMap;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -17,12 +18,12 @@ import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 
 @Model
-public class AddMarcadoresView {
+public class MapaView {
 
 	private MapModel mapModel;
 	private String nomeMarcador;
-	private double lat;
-	private double lon;
+	private double lat = 10;
+	private double lon = 1000;
 
 	@Inject
 	private MarcadorDao marcadorDao;
@@ -31,8 +32,11 @@ public class AddMarcadoresView {
 	public void init() {
 
 		setMapModel(new DefaultMapModel());
+		updateMarcadores();
+		
+	    
+		
 		 
-
 	}
 
 	public MapModel getMapModel() {
@@ -67,21 +71,25 @@ public class AddMarcadoresView {
 		this.lon = lon;
 	}
 
-	public void addMarcadores() {
+	public void updateMarcadores() {
+		
+		 
+		
+		 
 
 		List<MarcadorModel> marcadorModels = marcadorDao.listAll();
 		
+		
+		
 
 		for (MarcadorModel model : marcadorModels) {
+			
+			
 
 			Marker marker = new Marker(new LatLng(model.getLatitude(), model.getLongitude()), model.getLogradouro());
 			getMapModel().addOverlay(marker);
-			
-			
-		}
 
-		EventBus eventBus = EventBusFactory.getDefault().eventBus();		
-		eventBus.publish("/mpsocket","Menssagem enviada");
+		}
 
 	}
 

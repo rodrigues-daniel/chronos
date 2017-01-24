@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
 
+
+
 @Entity
 public class MarcadorModel implements Serializable {
 
@@ -48,6 +50,9 @@ public class MarcadorModel implements Serializable {
 	public void setVersion(final int version) {
 		this.version = version;
 	}
+	
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {

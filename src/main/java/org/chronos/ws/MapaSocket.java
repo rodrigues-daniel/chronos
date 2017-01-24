@@ -1,9 +1,7 @@
 package org.chronos.ws;
 
-
-import javax.inject.Inject;
-
-import org.chronos.view.AddMarcadoresView;
+import org.primefaces.json.JSONObject;
+import org.primefaces.model.map.MapModel;
 import org.primefaces.push.annotation.OnMessage;
 import org.primefaces.push.annotation.OnOpen;
 import org.primefaces.push.annotation.PushEndpoint;
@@ -11,11 +9,6 @@ import org.primefaces.push.impl.JSONEncoder;
 
 @PushEndpoint("/mpsocket")
 public class MapaSocket {
-	 
-	
-	@Inject
-	private AddMarcadoresView mview;
-	
 
 	@OnOpen
 	public void onOpen() {
@@ -24,16 +17,12 @@ public class MapaSocket {
 	}
 
 	@OnMessage(encoders = { JSONEncoder.class })
-	public String onMessage(String menssagem) {		 
-			
-		System.out.println("Menssagem Retornada pelo console: " + menssagem);
+	public String onMessage(String menssagem) {			
 		
-		mview.addMarcadores();
+		
+		System.out.println("Menssagem Retornada pelo console: " + menssagem);
 
-		return menssagem ;
+		return  menssagem;
 	}
- 
-
-
 
 }
