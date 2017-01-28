@@ -41,6 +41,26 @@
 							<h:message for="marcadorModelBeanExampleNumero" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						<h:outputLabel for="marcadorModelBeanExampleIcone" value="Icone:"/>
+						<h:panelGroup>
+							<h:inputText id="marcadorModelBeanExampleIcone" maxLength="50" value="#{marcadorModelBean.example.icone}"/>
+							<h:message for="marcadorModelBeanExampleIcone" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="marcadorModelBeanExampleFuncao" value="Funcao:"/>
+						<h:panelGroup>
+							<h:selectOneMenu id="marcadorModelBeanExampleFuncao" value="#{marcadorModelBean.example.funcao}">
+								<f:selectItem/>
+								<f:selectItem itemValue="TecnicoAtendimento"/>
+								<f:selectItem itemValue="TecnicoRede"/>
+								<f:selectItem itemValue="Nodo"/>
+								<f:selectItem itemValue="Amplificador"/>
+								<f:selectItem itemValue="Rede"/>
+								<f:selectItem itemValue="Zona"/>
+							</h:selectOneMenu>
+							<h:message for="marcadorModelBeanExampleFuncao" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
 					</h:panelGrid>
 					<h:panelGroup styleClass="buttons">
 						<h:commandLink value="Search" action='#{marcadorModelBean.search}' styleClass="btn btn-primary"/>
@@ -84,6 +104,15 @@
 					<h:link outcome="/marcadorModel/view">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="_itemLongitude" value="#{_item.longitude}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Icone"/>
+					</f:facet>
+					<h:link outcome="/marcadorModel/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemIcone" value="#{_item.icone}"/>
 					</h:link>
 				</h:column>
 			</h:dataTable>

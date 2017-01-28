@@ -25,15 +25,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.chronos.model.MarcadorModel;
-import org.chronos.view.Pessoa;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
-import org.primefaces.push.EventBus;
-import org.primefaces.push.EventBusFactory;
-
-import com.google.gson.Gson;
+import org.chronos.model.Icone;
 
 /**
  * Backing bean for MarcadorModel entities.
@@ -86,9 +78,6 @@ public class MarcadorModelBean implements Serializable {
 
 		this.conversation.begin();
 		this.conversation.setTimeout(1800000L);
-
-		envMessage(true);
-
 		return "create?faces-redirect=true";
 	}
 
@@ -111,7 +100,6 @@ public class MarcadorModelBean implements Serializable {
 	}
 
 	public MarcadorModel findById(Long id) {
-	
 
 		return this.entityManager.find(MarcadorModel.class, id);
 	}
@@ -121,43 +109,36 @@ public class MarcadorModelBean implements Serializable {
 	 */
 
 	public String update() {
-
 		this.conversation.end();
-		
-		envMessage(false);
 
 		try {
 			if (this.id == null) {
 				this.entityManager.persist(this.marcadorModel);
-				envMessage(false);
 				return "search?faces-redirect=true";
 			} else {
 				this.entityManager.merge(this.marcadorModel);
-				envMessage(false);
-				return "view?faces-redirect=true&id=" + this.marcadorModel.getId();
+				return "view?faces-redirect=true&id="
+						+ this.marcadorModel.getId();
 			}
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(e.getMessage()));
 			return null;
 		}
-
 	}
 
 	public String delete() {
-		
 		this.conversation.end();
 
-		envMessage(false);
-		
 		try {
 			MarcadorModel deletableEntity = findById(getId());
 
 			this.entityManager.remove(deletableEntity);
 			this.entityManager.flush();
-			envMessage(false);
 			return "search?faces-redirect=true";
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(e.getMessage()));
 			return null;
 		}
 	}
@@ -205,16 +186,21 @@ public class MarcadorModelBean implements Serializable {
 
 		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
 		Root<MarcadorModel> root = countCriteria.from(MarcadorModel.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria).getSingleResult();
+		countCriteria = countCriteria.select(builder.count(root)).where(
+				getSearchPredicates(root));
+		this.count = this.entityManager.createQuery(countCriteria)
+				.getSingleResult();
 
 		// Populate this.pageItems
 
-		CriteriaQuery<MarcadorModel> criteria = builder.createQuery(MarcadorModel.class);
+		CriteriaQuery<MarcadorModel> criteria = builder
+				.createQuery(MarcadorModel.class);
 		root = criteria.from(MarcadorModel.class);
 		TypedQuery<MarcadorModel> query = this.entityManager
-				.createQuery(criteria.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(getPageSize());
+				.createQuery(criteria.select(root).where(
+						getSearchPredicates(root)));
+		query.setFirstResult(this.page * getPageSize()).setMaxResults(
+				getPageSize());
 		this.pageItems = query.getResultList();
 	}
 
@@ -225,13 +211,25 @@ public class MarcadorModelBean implements Serializable {
 
 		String logradouro = this.example.getLogradouro();
 		if (logradouro != null && !"".equals(logradouro)) {
-			predicatesList.add(
-					builder.like(builder.lower(root.<String>get("logradouro")), '%' + logradouro.toLowerCase() + '%'));
+			predicatesList.add(builder.like(
+					builder.lower(root.<String> get("logradouro")),
+					'%' + logradouro.toLowerCase() + '%'));
 		}
 		String numero = this.example.getNumero();
 		if (numero != null && !"".equals(numero)) {
-			predicatesList
-					.add(builder.like(builder.lower(root.<String>get("numero")), '%' + numero.toLowerCase() + '%'));
+			predicatesList.add(builder.like(
+					builder.lower(root.<String> get("numero")),
+					'%' + numero.toLowerCase() + '%'));
+		}
+		String icone = this.example.getIcone();
+		if (icone != null && !"".equals(icone)) {
+			predicatesList.add(builder.like(
+					builder.lower(root.<String> get("icone")),
+					'%' + icone.toLowerCase() + '%'));
+		}
+		Icone funcao = this.example.getFuncao();
+		if (funcao != null) {
+			predicatesList.add(builder.equal(root.get("funcao"), funcao));
 		}
 
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);
@@ -252,12 +250,11 @@ public class MarcadorModelBean implements Serializable {
 
 	public List<MarcadorModel> getAll() {
 
-		CriteriaQuery<MarcadorModel> criteria = this.entityManager.getCriteriaBuilder()
-				.createQuery(MarcadorModel.class);
-		
-	
-		
-		return this.entityManager.createQuery(criteria.select(criteria.from(MarcadorModel.class))).getResultList();
+		CriteriaQuery<MarcadorModel> criteria = this.entityManager
+				.getCriteriaBuilder().createQuery(MarcadorModel.class);
+		return this.entityManager.createQuery(
+				criteria.select(criteria.from(MarcadorModel.class)))
+				.getResultList();
 	}
 
 	@Resource
@@ -265,18 +262,21 @@ public class MarcadorModelBean implements Serializable {
 
 	public Converter getConverter() {
 
-		final MarcadorModelBean ejbProxy = this.sessionContext.getBusinessObject(MarcadorModelBean.class);
+		final MarcadorModelBean ejbProxy = this.sessionContext
+				.getBusinessObject(MarcadorModelBean.class);
 
 		return new Converter() {
 
 			@Override
-			public Object getAsObject(FacesContext context, UIComponent component, String value) {
+			public Object getAsObject(FacesContext context,
+					UIComponent component, String value) {
 
 				return ejbProxy.findById(Long.valueOf(value));
 			}
 
 			@Override
-			public String getAsString(FacesContext context, UIComponent component, Object value) {
+			public String getAsString(FacesContext context,
+					UIComponent component, Object value) {
 
 				if (value == null) {
 					return "";
@@ -301,24 +301,5 @@ public class MarcadorModelBean implements Serializable {
 		MarcadorModel added = this.add;
 		this.add = new MarcadorModel();
 		return added;
-	}
-
-	public void envMessage(boolean novamsn) {
- 
-		
-		List<MarcadorModel> marcadorModels = getAll(); 		 
-		
-		
-		
-		
-	/*	Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Daniel ");
-		pessoa.setIdade("3555");*/
-		
-		 
-		EventBus eventBus = EventBusFactory.getDefault().eventBus();
-		eventBus.publish("/mpsocket",new Gson().toJson(marcadorModels));
-		 
-		
 	}
 }

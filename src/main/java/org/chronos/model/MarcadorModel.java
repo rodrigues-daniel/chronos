@@ -9,17 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
-
-
+import javax.persistence.Enumerated;
+import org.chronos.model.Icone;
 
 @Entity
 public class MarcadorModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -39,9 +36,12 @@ public class MarcadorModel implements Serializable {
 
 	@Column(length = 10)
 	private double longitude;
-	
-	
-	 
+
+	@Column(length = 50)
+	private String icone;
+
+	@Enumerated
+	private Icone funcao;
 
 	public Long getId() {
 		return this.id;
@@ -58,9 +58,6 @@ public class MarcadorModel implements Serializable {
 	public void setVersion(final int version) {
 		this.version = version;
 	}
-	
-	
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -119,6 +116,22 @@ public class MarcadorModel implements Serializable {
 		this.longitude = longitude;
 	}
 
+	public String getIcone() {
+		return icone;
+	}
+
+	public void setIcone(String icone) {
+		this.icone = icone;
+	}
+
+	public Icone getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Icone funcao) {
+		this.funcao = funcao;
+	}
+
 	@Override
 	public String toString() {
 		String result = getClass().getSimpleName() + " ";
@@ -131,8 +144,11 @@ public class MarcadorModel implements Serializable {
 			result += ", numero: " + numero;
 		result += ", latitude: " + latitude;
 		result += ", longitude: " + longitude;
+		if (icone != null && !icone.trim().isEmpty())
+			result += ", icone: " + icone;
+		if (funcao != null)
+			result += ", funcao: " + funcao;
 		return result;
 	}
 
- 
 }

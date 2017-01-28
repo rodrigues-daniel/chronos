@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value='#{entradaDeOrdemBean.page}'/>
+		<f:event type="preRenderView" listener='#{entradaDeOrdemBean.paginate}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Entrada De Ordem entities"/>
+
+	<ui:define name="header">
+		Entrada De Ordem
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Entrada De Ordem entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="entradaDeOrdemBeanExampleOrdem" value="Ordem:"/>
+						<h:panelGroup>
+							<h:inputText id="entradaDeOrdemBeanExampleOrdem" value="#{entradaDeOrdemBean.example.ordem}"/>
+							<h:message for="entradaDeOrdemBeanExampleOrdem" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="entradaDeOrdemBeanExampleEndereco" value="Endereco:"/>
+						<h:panelGroup>
+							<h:inputText id="entradaDeOrdemBeanExampleEndereco" value="#{entradaDeOrdemBean.example.endereco}"/>
+							<h:message for="entradaDeOrdemBeanExampleEndereco" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="entradaDeOrdemBeanExampleAssinante" value="Assinante:"/>
+						<h:panelGroup>
+							<h:inputText id="entradaDeOrdemBeanExampleAssinante" value="#{entradaDeOrdemBean.example.assinante}"/>
+							<h:message for="entradaDeOrdemBeanExampleAssinante" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="entradaDeOrdemBeanExampleServico" value="Servico:"/>
+						<h:panelGroup>
+							<h:selectOneMenu id="entradaDeOrdemBeanExampleServico" value="#{entradaDeOrdemBean.example.servico}">
+								<f:selectItem/>
+								<f:selectItem itemValue="INTERNET"/>
+								<f:selectItem itemValue="TV"/>
+								<f:selectItem itemValue="CABOFONE"/>
+							</h:selectOneMenu>
+							<h:message for="entradaDeOrdemBeanExampleServico" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="entradaDeOrdemBeanExampleMotivo" value="Motivo:"/>
+						<h:panelGroup>
+							<h:selectOneMenu id="entradaDeOrdemBeanExampleMotivo" value="#{entradaDeOrdemBean.example.motivo}">
+								<f:selectItem/>
+								<f:selectItem itemValue="RealizarAtendimento"/>
+								<f:selectItem itemValue="FaltaDeAcesso"/>
+								<f:selectItem itemValue="DropPartido"/>
+								<f:selectItem itemValue="DropFolgado"/>
+							</h:selectOneMenu>
+							<h:message for="entradaDeOrdemBeanExampleMotivo" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action='#{entradaDeOrdemBean.search}' styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action='#{entradaDeOrdemBean.create}' styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="entradaDeOrdemBeanPageItems" styleClass="data-table" value="#{entradaDeOrdemBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Ordem"/>
+					</f:facet>
+					<h:link outcome="/entradaDeOrdem/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemOrdem" value="#{_item.ordem}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Endereco"/>
+					</f:facet>
+					<h:link outcome="/entradaDeOrdem/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemEndereco" value="#{_item.endereco}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Assinante"/>
+					</f:facet>
+					<h:link outcome="/entradaDeOrdem/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemAssinante" value="#{_item.assinante}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Servico"/>
+					</f:facet>
+					<h:link outcome="/entradaDeOrdem/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemServico" value="#{_item.servico}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Motivo"/>
+					</f:facet>
+					<h:link outcome="/entradaDeOrdem/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="_itemMotivo" value="#{_item.motivo}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value='#{entradaDeOrdemBean}'/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

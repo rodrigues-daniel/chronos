@@ -14,7 +14,7 @@
 <h:body>
 
  
-	<p:gmap id="updatemarks" center="-5.837658, -35.213417" zoom="15" type="hybrid"
+	<p:gmap id="updatemarks" center="#{mapaView.lat},#{mapaView.lng}" zoom="#{mapaView.zoon}" type="hybrid"
 		style="width:700px;height:600px" model="#{mapaView.mapModel}"
 		widgetVar="markermap"  />	 
  
@@ -23,7 +23,7 @@
  	
 	<p:socket onMessage="marcaposi" channel="/mpsocket" />
 	
-
+   
 
 	<script type="text/javascript">
  
@@ -58,11 +58,12 @@
     			 
 
     		 currentMarker = new google.maps.Marker({
-	                position:new google.maps.LatLng(novaMarca[i].latitude,novaMarca[i].longitude)
+	                position:new google.maps.LatLng(novaMarca[i].latitude,novaMarca[i].longitude),
+             		 
 	            }); 
 
-    		 marksAntigos.markers[i] = currentMarker;  	    		 
-    		 marksAntigos.markers[i].setMap(marksAntigos); 
+    		 marksAntigos.markers[i] = currentMarker;      		    		 
+    		 marksAntigos.markers[i].setMap(marksAntigos);  		 
     		 
 
 	     }	

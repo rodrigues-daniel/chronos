@@ -1,15 +1,10 @@
 package org.chronos.ws;
 
-
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.primefaces.push.annotation.OnMessage;
 import org.primefaces.push.annotation.OnOpen;
 import org.primefaces.push.annotation.PushEndpoint;
 import org.primefaces.push.impl.JSONEncoder;
-import org.view.MarcadorModelBean;
+
 
 @PushEndpoint("/mpsocket")
 public class MapaSocket {

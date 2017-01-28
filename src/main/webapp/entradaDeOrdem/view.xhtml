@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{entradaDeOrdemBean.id}'/>
+		<f:event type="preRenderView" listener='#{entradaDeOrdemBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Entrada De Ordem"/>
+
+	<ui:define name="header">
+		Entrada De Ordem
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Entrada De Ordem
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemOrdem" value="Ordem:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemOrdem" value="#{entradaDeOrdemBean.entradaDeOrdem.ordem}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemEndereco" value="Endereco:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemEndereco" value="#{entradaDeOrdemBean.entradaDeOrdem.endereco}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemAssinante" value="Assinante:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemAssinante" value="#{entradaDeOrdemBean.entradaDeOrdem.assinante}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemServico" value="Servico:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemServico" value="#{entradaDeOrdemBean.entradaDeOrdem.servico}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemMotivo" value="Motivo:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemMotivo" value="#{entradaDeOrdemBean.entradaDeOrdem.motivo}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemCidade" value="Cidade:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemCidade" value="#{entradaDeOrdemBean.entradaDeOrdem.cidade}"/>
+			<h:outputText/>
+			<h:outputLabel for="entradaDeOrdemBeanEntradaDeOrdemNodo" value="Nodo:"/>
+			<h:outputText id="entradaDeOrdemBeanEntradaDeOrdemNodo" value="#{entradaDeOrdemBean.entradaDeOrdem.nodo}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

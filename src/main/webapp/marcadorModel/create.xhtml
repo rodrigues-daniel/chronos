@@ -60,6 +60,26 @@
 					<h:message for="marcadorModelBeanMarcadorModelLongitude" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
+				<h:outputLabel for="marcadorModelBeanMarcadorModelIcone" value="Icone:"/>
+				<h:panelGroup>
+					<h:inputText id="marcadorModelBeanMarcadorModelIcone" maxLength="50" value="#{marcadorModelBean.marcadorModel.icone}"/>
+					<h:message for="marcadorModelBeanMarcadorModelIcone" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="marcadorModelBeanMarcadorModelFuncao" value="Funcao:"/>
+				<h:panelGroup>
+					<h:selectOneMenu id="marcadorModelBeanMarcadorModelFuncao" value="#{marcadorModelBean.marcadorModel.funcao}">
+						<f:selectItem/>
+						<f:selectItem itemValue="TecnicoAtendimento"/>
+						<f:selectItem itemValue="TecnicoRede"/>
+						<f:selectItem itemValue="Nodo"/>
+						<f:selectItem itemValue="Amplificador"/>
+						<f:selectItem itemValue="Rede"/>
+						<f:selectItem itemValue="Zona"/>
+					</h:selectOneMenu>
+					<h:message for="marcadorModelBeanMarcadorModelFuncao" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
 			</h:panelGrid>
 
 			<div class="buttons">
