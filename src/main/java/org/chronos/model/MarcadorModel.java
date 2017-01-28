@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -15,6 +16,10 @@ import javax.persistence.Version;
 public class MarcadorModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -34,6 +39,9 @@ public class MarcadorModel implements Serializable {
 
 	@Column(length = 10)
 	private double longitude;
+	
+	
+	 
 
 	public Long getId() {
 		return this.id;
@@ -125,4 +133,6 @@ public class MarcadorModel implements Serializable {
 		result += ", longitude: " + longitude;
 		return result;
 	}
+
+ 
 }

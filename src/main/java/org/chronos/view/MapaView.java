@@ -33,10 +33,7 @@ public class MapaView {
 
 		setMapModel(new DefaultMapModel());
 		updateMarcadores();
-		
-	    
-		
-		 
+
 	}
 
 	public MapModel getMapModel() {
@@ -72,24 +69,21 @@ public class MapaView {
 	}
 
 	public void updateMarcadores() {
-		
-		 
-		
-		 
 
 		List<MarcadorModel> marcadorModels = marcadorDao.listAll();
-		
-		
-		
 
 		for (MarcadorModel model : marcadorModels) {
-			
-			
 
 			Marker marker = new Marker(new LatLng(model.getLatitude(), model.getLongitude()), model.getLogradouro());
 			getMapModel().addOverlay(marker);
 
 		}
+
+	}
+
+	public void publishMapa() {
+
+		marcadorDao.envMessage();
 
 	}
 

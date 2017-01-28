@@ -87,7 +87,7 @@ public class MarcadorModelBean implements Serializable {
 		this.conversation.begin();
 		this.conversation.setTimeout(1800000L);
 
-		envMessage();
+		envMessage(true);
 
 		return "create?faces-redirect=true";
 	}
@@ -111,7 +111,7 @@ public class MarcadorModelBean implements Serializable {
 	}
 
 	public MarcadorModel findById(Long id) {
-		envMessage();
+	
 
 		return this.entityManager.find(MarcadorModel.class, id);
 	}
@@ -124,16 +124,16 @@ public class MarcadorModelBean implements Serializable {
 
 		this.conversation.end();
 		
-		envMessage();
+		envMessage(false);
 
 		try {
 			if (this.id == null) {
 				this.entityManager.persist(this.marcadorModel);
-				envMessage();
+				envMessage(false);
 				return "search?faces-redirect=true";
 			} else {
 				this.entityManager.merge(this.marcadorModel);
-				envMessage();
+				envMessage(false);
 				return "view?faces-redirect=true&id=" + this.marcadorModel.getId();
 			}
 		} catch (Exception e) {
@@ -144,14 +144,17 @@ public class MarcadorModelBean implements Serializable {
 	}
 
 	public String delete() {
+		
 		this.conversation.end();
 
+		envMessage(false);
+		
 		try {
 			MarcadorModel deletableEntity = findById(getId());
 
 			this.entityManager.remove(deletableEntity);
 			this.entityManager.flush();
-			envMessage();
+			envMessage(false);
 			return "search?faces-redirect=true";
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
@@ -252,6 +255,8 @@ public class MarcadorModelBean implements Serializable {
 		CriteriaQuery<MarcadorModel> criteria = this.entityManager.getCriteriaBuilder()
 				.createQuery(MarcadorModel.class);
 		
+	
+		
 		return this.entityManager.createQuery(criteria.select(criteria.from(MarcadorModel.class))).getResultList();
 	}
 
@@ -298,15 +303,22 @@ public class MarcadorModelBean implements Serializable {
 		return added;
 	}
 
-	private void envMessage() {
+	public void envMessage(boolean novamsn) {
  
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Daniel ");
-		pessoa.setIdade("3555");
 		
+		List<MarcadorModel> marcadorModels = getAll(); 		 
+		
+		
+		
+		
+	/*	Pessoa pessoa = new Pessoa();
+		pessoa.setNome("Daniel ");
+		pessoa.setIdade("3555");*/
 		
 		 
 		EventBus eventBus = EventBusFactory.getDefault().eventBus();
-		eventBus.publish("/mpsocket",new Gson().toJson(pessoa));
+		eventBus.publish("/mpsocket",new Gson().toJson(marcadorModels));
+		 
+		
 	}
 }

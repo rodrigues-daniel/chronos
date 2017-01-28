@@ -6,35 +6,76 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV5v_BKb3vie085zaF3Ehl2zDAiZDd8s0" 	type="text/javascript" />
-	 
-	
-	
-	
-
-
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV5v_BKb3vie085zaF3Ehl2zDAiZDd8s0"
+		type="text/javascript" />
 	<title>Mapa</title>
 </h:head>
 <h:body>
 
+ 
+	<p:gmap id="updatemarks" center="-5.837658, -35.213417" zoom="15" type="hybrid"
+		style="width:700px;height:600px" model="#{mapaView.mapModel}"
+		widgetVar="markermap"  />	 
+ 
 
-<h:form>
-<p:gmap center="-5.837658, -35.213417" zoom="15" type="hybrid"
-style="width:700px;height:600px" model="#{mapaView.mapModel}" />
+
+ 	
+	<p:socket onMessage="marcaposi" channel="/mpsocket" />
+	
 
 
-<p:socket  onMessage="geoteste"    channel="/mpsocket" />
-</h:form>
-<script type="text/javascript">
-    function geoteste(menssagem) {
-
-		pessoa = JSON.parse(menssagem);
-		 
-		
-        alert("JSON: " + pessoa.nome);
-        
-    }
+	<script type="text/javascript">
+ 
   
+
+ 	
+	//atualizado pelo servidor
+    function marcaposi(menssagem) {     
+
+    	 marksNovos = JSON.parse(menssagem);      
+
+        insereNovosMarcadores(marksNovos); 
+
+
+
+  	    
+  	 
+    }
+
+
+    //gera os marcadores
+    function insereNovosMarcadores(novaMarca){
+    	
+    	var marksAntigos = PF("markermap").getMap(); 
+    	  
+
+    	for(var i in novaMarca)	{
+    		 
+
+    	
+    		marksAntigos.markers[i].setMap(null); 
+    			 
+
+    		 currentMarker = new google.maps.Marker({
+	                position:new google.maps.LatLng(novaMarca[i].latitude,novaMarca[i].longitude)
+	            }); 
+
+    		 marksAntigos.markers[i] = currentMarker;  	    		 
+    		 marksAntigos.markers[i].setMap(marksAntigos); 
+    		 
+
+	     }	
+
+    }
+
+    
+
+
+
+
+ 
+    
     
 </script>
 

@@ -10,6 +10,8 @@ import org.chronos.model.MarcadorModel;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
 
+import com.google.gson.Gson;
+
 /**
  * DAO for Geoposicao
  */
@@ -61,9 +63,14 @@ public class MarcadorDao {
 		return findAllQuery.getResultList();
 	}
 
-	private void envMessage() {
+	public void envMessage() {
 
+		
+		List<MarcadorModel> marcadorModels = listAll(); 
+	 
+		
+		 
 		EventBus eventBus = EventBusFactory.getDefault().eventBus();
-		eventBus.publish("/mpsocket", "Menssagem enviada");
+		eventBus.publish("/mpsocket",new Gson().toJson(marcadorModels));
 	}
 }
